@@ -104,21 +104,38 @@
     .tabs a { font-size: 13px; }
     .container { padding: 0 12px; margin: 16px auto; }
     .club-name { font-size: 18px; }
+
+    /* 내 전적 */
     .my-summary { grid-template-columns: 1fr 1fr; gap: 10px; }
     .summary-card { padding: 14px 10px; }
     .summary-num { font-size: 22px; }
     .recent-results { flex-wrap: wrap; }
     .result-dot { width: 20px; height: 20px; font-size: 9px; }
-    .rank-table { font-size: 12px; }
-    .rank-table th, .rank-table td { padding: 10px 8px; }
-    .rank-table th:nth-child(4), .rank-table td:nth-child(4),
-    .rank-table th:nth-child(5), .rank-table td:nth-child(5) { display: none; }
-    .partner-grid { grid-template-columns: 1fr; gap: 10px; }
-    .partner-card { padding: 12px; }
-    .partner-pct { font-size: 18px; }
+
+    /* 월별 차트 */
     .bar-chart { height: 120px; }
     .bar-wrapper { height: 100px; }
     .bar { width: 12px; }
+
+    /* 랭킹 테이블 - 가로 스크롤 */
+    .section:has(.rank-table) { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .rank-table { min-width: 540px; font-size: 12px; }
+    .rank-table th, .rank-table td { padding: 10px 6px; }
+    .avatar { width: 28px; height: 28px; font-size: 11px; }
+
+    /* 파트너 궁합 */
+    .partner-grid { grid-template-columns: 1fr; gap: 10px; }
+    .partner-card { padding: 12px 10px; gap: 10px; }
+    .partner-avatars .avatar { width: 32px; height: 32px; font-size: 12px; }
+    .partner-names { font-size: 13px; word-break: keep-all; }
+    .best-badge { font-size: 9px; padding: 2px 6px; white-space: nowrap; }
+    .partner-record { font-size: 11px; }
+    .partner-pct { font-size: 18px; }
+    .partner-label { font-size: 9px; }
+
+    /* 필터 */
+    .section-header { flex-wrap: wrap; gap: 8px; padding: 14px 14px; }
+    .filter-bar { margin: 0; }
   }
 </style>
 </head>
