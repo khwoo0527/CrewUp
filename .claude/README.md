@@ -176,7 +176,7 @@ cp -r {기존프로젝트}/.claude/ {새프로젝트}/.claude/
 ```
 개발 사이클:
 
-0. project-init 에이전트 → 기술 스택 결정 + CLAUDE.md + rules 생성
+0. project-init 에이전트 → 기술 스택 결정 → rules 생성 → CLAUDE.md 생성
 1. PRD 작성 → prd-to-roadmap 에이전트 → ROADMAP.md 생성
 2. phase-planner 에이전트 → Phase 상세 계획 생성
 3. sprint-planner 에이전트 → Sprint 실행 명세서 생성
@@ -198,6 +198,7 @@ cp -r {기존프로젝트}/.claude/ {새프로젝트}/.claude/
 ├── settings.local.json          # 로컬 전용 권한 설정 (환경별)
 │
 ├── rules/                       # 규칙 라이브러리 (기술 스택별 + 워크플로우)
+│   ├── TEMPLATE.md              #   rules 파일 작성 가이드 (메타 템플릿)
 │   ├── sprint-workflow.md       #   스프린트/핫픽스 워크플로우 (범용)
 │   ├── csharp.md                #   C# 베스트 프랙티스
 │   ├── notion.md                #   Notion 연동 규칙
