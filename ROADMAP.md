@@ -1,4 +1,4 @@
-# AllClub 프로젝트 로드맵
+# CrewUp 프로젝트 로드맵
 
 ## 개요
 - 목표: 테니스 동호회 관리 플랫폼 (MVP) → 다종목 동호회 → 범용 스포츠 커뮤니티
@@ -330,8 +330,8 @@ MVP 웹에서 유저가 확보되면 네이티브 앱으로 전환하여 푸시 
 - TestFlight → App Store 심사 → 출시
 
 ### 완료 기준
-- Google Play에서 "AllClub" 검색 → 다운로드 → 정상 동작
-- App Store에서 "AllClub" 검색 → 다운로드 → 정상 동작
+- Google Play에서 "CrewUp" 검색 → 다운로드 → 정상 동작
+- App Store에서 "CrewUp" 검색 → 다운로드 → 정상 동작
 - 네이티브 푸시 알림 Android+iOS 모두 정상
 
 ### 기술 고려사항

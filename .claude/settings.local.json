@@ -7,7 +7,19 @@
       "Bash(done)",
       "Bash(ls -la *.md)",
       "Bash(find docs/ -name *.md)",
-      "Bash(find .claude/ -name *.md -o -name *.json)"
+      "Bash(find .claude/ -name *.md -o -name *.json)",
+      "Bash(cd /tmp)",
+      "Bash(npx create-expo-app@latest allclub-temp --template blank-typescript)",
+      "Bash(cp /tmp/allclub-temp/app.json /tmp/allclub-temp/App.tsx /tmp/allclub-temp/index.ts /tmp/allclub-temp/tsconfig.json /tmp/allclub-temp/package.json /tmp/allclub-temp/package-lock.json .)",
+      "Bash(cp -r /tmp/allclub-temp/assets .)",
+      "Bash(cp -r /tmp/allclub-temp/node_modules .)",
+      "Bash(rm -rf /tmp/allclub-temp)",
+      "Bash(npx expo:*)",
+      "Bash(npm install:*)",
+      "Bash(npm ls:*)",
+      "Bash(npx tsc:*)",
+      "Bash(kill %1)",
+      "Bash(grep -r \"AllClub\\\\|allclub\" --include=*.ts --include=*.tsx --include=*.json --include=*.md --include=*.js -l .)"
     ]
   }
 }

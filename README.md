@@ -1,10 +1,10 @@
-# 🎾 AllClub
+# 🎾 CrewUp
 
 **동호회 관리 플랫폼** — 동호회 운영자가 체계적으로 관리하고, 일반인이 동호회를 찾아 가입할 수 있는 서비스
 
 ## 프로젝트 소개
 
-AllClub은 카카오톡 단톡방으로 비효율적으로 관리되는 동호회 운영을 체계화하는 플랫폼입니다.
+CrewUp은 카카오톡 단톡방으로 비효율적으로 관리되는 동호회 운영을 체계화하는 플랫폼입니다.
 
 - **운영자**: 일정 생성, 멤버 관리, 참석/대기 자동화, 통계
 - **회원**: 알림으로 일정 확인, 원탭 참석, 승률/랭킹
@@ -82,7 +82,7 @@ npx expo start --android
 ## 프로젝트 구조
 
 ```
-AllClub/
+CrewUp/
 ├── app/              # Expo Router (파일 기반 라우팅)
 ├── src/
 │   ├── features/     # 기능별 모듈 (auth, club, schedule, member, notification, stats)

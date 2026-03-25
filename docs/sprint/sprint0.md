@@ -38,7 +38,7 @@ app/                    ← 라우팅만 (비즈니스 로직 금지)
 **하드코딩 금지:**
 ```typescript
 // Bad
-<View style={{ backgroundColor: '#2e7d32' }}><Text>AllClub</Text></View>
+<View style={{ backgroundColor: '#2e7d32' }}><Text>CrewUp</Text></View>
 // Good
 <View className="bg-primary"><Text>{APP_NAME}</Text></View>
 ```
@@ -175,7 +175,7 @@ app/                    ← 라우팅만 (비즈니스 로직 금지)
 **Step 6: 상수 파일 기반 구축**
 - `src/shared/constants/app.ts` 생성:
   ```typescript
-  export const APP_NAME = 'AllClub';
+  export const APP_NAME = 'CrewUp';
   export const APP_SCHEME = 'allclub';
   export const APP_VERSION = '0.1.0';
   ```
@@ -195,7 +195,7 @@ app/                    ← 라우팅만 (비즈니스 로직 금지)
   ```json
   {
     "expo": {
-      "name": "AllClub",
+      "name": "CrewUp",
       "slug": "allclub",
       "scheme": "allclub",
       "version": "0.1.0",
@@ -287,7 +287,7 @@ git commit -m "feat(sprint0): Expo 프로젝트 초기화 + TypeScript strict + 
 - `app/_layout.tsx`에 임시 테스트 UI:
   ```tsx
   <View className="flex-1 items-center justify-center bg-background">
-    <Text className="text-2xl font-bold text-primary">🎾 AllClub</Text>
+    <Text className="text-2xl font-bold text-primary">🎾 CrewUp</Text>
     <Text className="text-sm text-gray-500 mt-2">테니스 동호회 관리 플랫폼</Text>
   </View>
   ```
