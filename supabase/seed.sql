@@ -1,0 +1,2 @@
+-- Sprint 1: 시드 데이터 없음 (소셜 로그인으로 유저 생성)
+-- Sprint 2에서 sport_categories, 테스트 동호회 등 추가 예정
