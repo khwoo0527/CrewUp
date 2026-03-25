@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>통계 - TenniSweet</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; color: #333; }
+
+  header { background: #fff; padding: 16px 32px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #e0e0e0; }
+  .logo { font-size: 20px; font-weight: 700; color: #2e7d32; text-decoration: none; }
+  .tabs { display: flex; gap: 24px; }
+  .tabs a { text-decoration: none; color: #555; font-size: 15px; padding-bottom: 2px; }
+  .tabs a.active { color: #2e7d32; font-weight: 600; border-bottom: 2px solid #2e7d32; }
+
+  .container { max-width: 1100px; margin: 24px auto; padding: 0 24px; }
+  .club-name { font-size: 22px; font-weight: 700; margin-bottom: 20px; }
+
+  /* 필터 */
+  .filter-bar { display: flex; gap: 10px; margin-bottom: 20px; align-items: center; }
+  .filter-select { padding: 8px 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 13px; background: #fff; }
+
+  /* 카드 공통 */
+  .section { background: #fff; border-radius: 12px; border: 1px solid #e0e0e0; margin-bottom: 20px; overflow: hidden; }
+  .section-header { padding: 16px 20px; border-bottom: 1px solid #eee; }
+  .section-title { font-size: 16px; font-weight: 700; }
+
+  /* 내 전적 요약 */
+  .my-summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; padding: 20px; }
+  .summary-card { text-align: center; padding: 20px 16px; background: #fafafa; border-radius: 10px; }
+  .summary-card.highlight { background: #e8f5e9; }
+  .summary-num { font-size: 28px; font-weight: 800; color: #2e7d32; }
+  .summary-num.singles { color: #1565c0; }
+  .summary-num.doubles { color: #f57c00; }
+  .summary-label { font-size: 12px; color: #888; margin-top: 4px; }
+  .summary-sub { font-size: 11px; color: #aaa; margin-top: 2px; }
+
+  /* 승률 바 */
+  .winrate-bar { height: 8px; background: #eee; border-radius: 4px; overflow: hidden; margin-top: 8px; }
+  .winrate-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; }
+  .winrate-fill.green { background: #2e7d32; }
+  .winrate-fill.blue { background: #1565c0; }
+  .winrate-fill.orange { background: #f57c00; }
+
+  /* 최근 전적 */
+  .recent-results { display: flex; gap: 6px; justify-content: center; margin-top: 8px; }
+  .result-dot { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #fff; }
+  .result-dot.win { background: #2e7d32; }
+  .result-dot.lose { background: #e53935; }
+
+  /* 회원별 랭킹 테이블 */
+  .rank-table { width: 100%; border-collapse: collapse; }
+  .rank-table th { padding: 12px 16px; text-align: left; font-size: 12px; color: #888; font-weight: 600; background: #fafafa; border-bottom: 1px solid #eee; }
+  .rank-table td { padding: 12px 16px; border-bottom: 1px solid #f5f5f5; font-size: 13px; }
+  .rank-table tr:hover { background: #fafafa; }
+  .rank-num { font-weight: 700; color: #2e7d32; width: 36px; text-align: center; }
+  .rank-num.gold { color: #f9a825; }
+  .rank-num.silver { color: #90a4ae; }
+  .rank-num.bronze { color: #a1887f; }
+
+  .rank-player { display: flex; align-items: center; gap: 10px; }
+  .avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: #fff; flex-shrink: 0; }
+  .a1 { background: #66bb6a; } .a2 { background: #42a5f5; } .a3 { background: #ffa726; }
+  .a4 { background: #ab47bc; } .a5 { background: #ef5350; } .a6 { background: #26a69a; }
+  .a7 { background: #78909c; } .a8 { background: #8d6e63; }
+
+  .mini-bar { width: 80px; height: 6px; background: #eee; border-radius: 3px; display: inline-block; vertical-align: middle; margin-left: 6px; }
+  .mini-fill { height: 100%; border-radius: 3px; }
+  .wr-text { font-weight: 700; }
+
+  /* 복식 파트너 궁합 */
+  .partner-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 20px; }
+  .partner-card { display: flex; align-items: center; gap: 14px; padding: 16px; background: #fafafa; border-radius: 10px; border: 1px solid #eee; transition: all 0.2s; }
+  .partner-card:hover { border-color: #c8e6c9; background: #f0f7f0; }
+  .partner-card.best { background: #e8f5e9; border-color: #81c784; }
+  .partner-avatars { display: flex; align-items: center; }
+  .partner-avatars .avatar:last-child { margin-left: -8px; border: 2px solid #fff; }
+  .partner-info { flex: 1; }
+  .partner-names { font-size: 14px; font-weight: 600; }
+  .partner-record { font-size: 12px; color: #888; margin-top: 2px; }
+  .partner-winrate { text-align: right; }
+  .partner-pct { font-size: 22px; font-weight: 800; color: #2e7d32; }
+  .partner-pct.low { color: #e53935; }
+  .partner-label { font-size: 10px; color: #aaa; }
+  .best-badge { font-size: 10px; background: #2e7d32; color: #fff; padding: 2px 8px; border-radius: 10px; font-weight: 600; margin-left: 6px; }
+
+  /* 월별 추이 차트 (CSS로 간단히) */
+  .chart-area { padding: 20px; }
+  .bar-chart { display: flex; align-items: flex-end; gap: 8px; height: 160px; padding-top: 10px; }
+  .bar-group { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .bar-wrapper { display: flex; gap: 3px; align-items: flex-end; height: 130px; }
+  .bar { width: 18px; border-radius: 3px 3px 0 0; transition: height 0.6s ease; position: relative; }
+  .bar.singles { background: #1565c0; }
+  .bar.doubles { background: #f57c00; }
+  .bar:hover { opacity: 0.8; }
+  .bar-label { font-size: 10px; color: #888; }
+  .bar-legend { display: flex; gap: 16px; justify-content: center; margin-top: 12px; font-size: 11px; color: #888; }
+  .legend-dot { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 4px; vertical-align: middle; }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="main.html" class="logo">🎾 AllClub</a>
+  <div class="tabs">
+    <a href="schedule.html">일정관리</a>
+    <a href="member.html">멤버관리</a>
+    <a href="stats.html" class="active">통계</a>
+  </div>
+</header>
+
+<div class="container">
+  <div class="club-name">🎾 TenniSweet</div>
+
+  <!-- 내 전적 요약 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">📊 내 전적 요약 <span style="font-size:13px; color:#888; font-weight:400;">이발리</span></div>
+    </div>
+    <div class="my-summary">
+      <div class="summary-card highlight">
+        <div class="summary-num">68%</div>
+        <div class="summary-label">전체 승률</div>
+        <div class="winrate-bar"><div class="winrate-fill green" style="width:68%"></div></div>
+        <div class="summary-sub">42승 20패</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-num singles">72%</div>
+        <div class="summary-label">단식 승률</div>
+        <div class="winrate-bar"><div class="winrate-fill blue" style="width:72%"></div></div>
+        <div class="summary-sub">18승 7패</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-num doubles">65%</div>
+        <div class="summary-label">복식 승률</div>
+        <div class="winrate-bar"><div class="winrate-fill orange" style="width:65%"></div></div>
+        <div class="summary-sub">24승 13패</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-label" style="margin-bottom:8px;">최근 10경기</div>
+        <div class="recent-results">
+          <div class="result-dot win">W</div>
+          <div class="result-dot win">W</div>
+          <div class="result-dot lose">L</div>
+          <div class="result-dot win">W</div>
+          <div class="result-dot lose">L</div>
+          <div class="result-dot win">W</div>
+          <div class="result-dot win">W</div>
+          <div class="result-dot win">W</div>
+          <div class="result-dot lose">L</div>
+          <div class="result-dot win">W</div>
+        </div>
+        <div class="summary-sub" style="margin-top:8px;">7승 3패</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 월별 승률 추이 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">📈 월별 승률 추이</div>
+    </div>
+    <div class="chart-area">
+      <div class="bar-chart">
+        <div class="bar-group">
+          <div class="bar-wrapper">
+            <div class="bar singles" style="height:78px;" title="단식 60%"></div>
+            <div class="bar doubles" style="height:65px;" title="복식 50%"></div>
+          </div>
+          <div class="bar-label">10월</div>
+        </div>
+        <div class="bar-group">
+          <div class="bar-wrapper">
+            <div class="bar singles" style="height:84px;" title="단식 65%"></div>
+            <div class="bar doubles" style="height:72px;" title="복식 55%"></div>
+          </div>
+          <div class="bar-label">11월</div>
+        </div>
+        <div class="bar-group">
+          <div class="bar-wrapper">
+            <div class="bar singles" style="height:91px;" title="단식 70%"></div>
+            <div class="bar doubles" style="height:78px;" title="복식 60%"></div>
+          </div>
+          <div class="bar-label">12월</div>
+        </div>
+        <div class="bar-group">
+          <div class="bar-wrapper">
+            <div class="bar singles" style="height:84px;" title="단식 65%"></div>
+            <div class="bar doubles" style="height:84px;" title="복식 65%"></div>
+          </div>
+          <div class="bar-label">1월</div>
+        </div>
+        <div class="bar-group">
+          <div class="bar-wrapper">
+            <div class="bar singles" style="height:97px;" title="단식 75%"></div>
+            <div class="bar doubles" style="height:78px;" title="복식 60%"></div>
+          </div>
+          <div class="bar-label">2월</div>
+        </div>
+        <div class="bar-group">
+          <div class="bar-wrapper">
+            <div class="bar singles" style="height:94px;" title="단식 72%"></div>
+            <div class="bar doubles" style="height:84px;" title="복식 65%"></div>
+          </div>
+          <div class="bar-label">3월</div>
+        </div>
+      </div>
+      <div class="bar-legend">
+        <span><span class="legend-dot" style="background:#1565c0;"></span>단식</span>
+        <span><span class="legend-dot" style="background:#f57c00;"></span>복식</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 회원별 랭킹 -->
+  <div class="section">
+    <div class="section-header" style="display:flex; justify-content:space-between; align-items:center;">
+      <div class="section-title">🏆 회원별 랭킹</div>
+      <div class="filter-bar" style="margin:0;">
+        <select class="filter-select">
+          <option>전체</option>
+          <option>단식</option>
+          <option>복식</option>
+        </select>
+      </div>
+    </div>
+    <table class="rank-table">
+      <thead>
+        <tr>
+          <th style="width:50px;">#</th>
+          <th>선수</th>
+          <th style="width:100px;">전적</th>
+          <th style="width:100px;">단식</th>
+          <th style="width:100px;">복식</th>
+          <th style="width:140px;">전체 승률</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="rank-num gold">🥇</td>
+          <td><div class="rank-player"><div class="avatar a1">김</div>김테니</div></td>
+          <td>52승 14패</td>
+          <td>25승 5패</td>
+          <td>27승 9패</td>
+          <td>
+            <span class="wr-text" style="color:#2e7d32;">79%</span>
+            <div class="mini-bar"><div class="mini-fill" style="width:79%; background:#2e7d32;"></div></div>
+          </td>
+        </tr>
+        <tr>
+          <td class="rank-num silver">🥈</td>
+          <td><div class="rank-player"><div class="avatar a2">박</div>박서브</div></td>
+          <td>46승 16패</td>
+          <td>20승 8패</td>
+          <td>26승 8패</td>
+          <td>
+            <span class="wr-text" style="color:#2e7d32;">74%</span>
+            <div class="mini-bar"><div class="mini-fill" style="width:74%; background:#2e7d32;"></div></div>
+          </td>
+        </tr>
+        <tr>
+          <td class="rank-num bronze">🥉</td>
+          <td><div class="rank-player"><div class="avatar a5">정</div>정백핸</div></td>
+          <td>38승 15패</td>
+          <td>16승 7패</td>
+          <td>22승 8패</td>
+          <td>
+            <span class="wr-text" style="color:#2e7d32;">72%</span>
+            <div class="mini-bar"><div class="mini-fill" style="width:72%; background:#2e7d32;"></div></div>
+          </td>
+        </tr>
+        <tr style="background:#f0f7f0;">
+          <td class="rank-num">4</td>
+          <td><div class="rank-player"><div class="avatar a3">이</div>이발리 <span style="font-size:11px; color:#888;">← 나</span></div></td>
+          <td>42승 20패</td>
+          <td>18승 7패</td>
+          <td>24승 13패</td>
+          <td>
+            <span class="wr-text" style="color:#2e7d32;">68%</span>
+            <div class="mini-bar"><div class="mini-fill" style="width:68%; background:#2e7d32;"></div></div>
+          </td>
+        </tr>
+        <tr>
+          <td class="rank-num">5</td>
+          <td><div class="rank-player"><div class="avatar a4">최</div>최포핸</div></td>
+          <td>35승 20패</td>
+          <td>15승 10패</td>
+          <td>20승 10패</td>
+          <td>
+            <span class="wr-text" style="color:#f57c00;">64%</span>
+            <div class="mini-bar"><div class="mini-fill" style="width:64%; background:#f57c00;"></div></div>
+          </td>
+        </tr>
+        <tr>
+          <td class="rank-num">6</td>
+          <td><div class="rank-player"><div class="avatar a6">한</div>한드롭</div></td>
+          <td>22승 18패</td>
+          <td>10승 9패</td>
+          <td>12승 9패</td>
+          <td>
+            <span class="wr-text" style="color:#f57c00;">55%</span>
+            <div class="mini-bar"><div class="mini-fill" style="width:55%; background:#f57c00;"></div></div>
+          </td>
+        </tr>
+        <tr>
+          <td class="rank-num">7</td>
+          <td><div class="rank-player"><div class="avatar a7">오</div>오슬라이스</div></td>
+          <td>12승 14패</td>
+          <td>5승 7패</td>
+          <td>7승 7패</td>
+          <td>
+            <span class="wr-text" style="color:#e53935;">46%</span>
+            <div class="mini-bar"><div class="mini-fill" style="width:46%; background:#e53935;"></div></div>
+          </td>
+        </tr>
+        <tr>
+          <td class="rank-num">8</td>
+          <td><div class="rank-player"><div class="avatar a8">강</div>강발리</div></td>
+          <td>5승 8패</td>
+          <td>2승 4패</td>
+          <td>3승 4패</td>
+          <td>
+            <span class="wr-text" style="color:#e53935;">38%</span>
+            <div class="mini-bar"><div class="mini-fill" style="width:38%; background:#e53935;"></div></div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 복식 파트너 궁합 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">🤝 복식 파트너 궁합 <span style="font-size:13px; color:#888; font-weight:400;">이발리 기준</span></div>
+    </div>
+    <div class="partner-grid">
+      <div class="partner-card best">
+        <div class="partner-avatars">
+          <div class="avatar a3">이</div>
+          <div class="avatar a1">김</div>
+        </div>
+        <div class="partner-info">
+          <div class="partner-names">이발리 + 김테니 <span class="best-badge">베스트 궁합</span></div>
+          <div class="partner-record">12승 3패 · 15경기</div>
+        </div>
+        <div class="partner-winrate">
+          <div class="partner-pct">80%</div>
+          <div class="partner-label">승률</div>
+        </div>
+      </div>
+      <div class="partner-card">
+        <div class="partner-avatars">
+          <div class="avatar a3">이</div>
+          <div class="avatar a2">박</div>
+        </div>
+        <div class="partner-info">
+          <div class="partner-names">이발리 + 박서브</div>
+          <div class="partner-record">7승 3패 · 10경기</div>
+        </div>
+        <div class="partner-winrate">
+          <div class="partner-pct">70%</div>
+          <div class="partner-label">승률</div>
+        </div>
+      </div>
+      <div class="partner-card">
+        <div class="partner-avatars">
+          <div class="avatar a3">이</div>
+          <div class="avatar a5">정</div>
+        </div>
+        <div class="partner-info">
+          <div class="partner-names">이발리 + 정백핸</div>
+          <div class="partner-record">5승 3패 · 8경기</div>
+        </div>
+        <div class="partner-winrate">
+          <div class="partner-pct">63%</div>
+          <div class="partner-label">승률</div>
+        </div>
+      </div>
+      <div class="partner-card">
+        <div class="partner-avatars">
+          <div class="avatar a3">이</div>
+          <div class="avatar a4">최</div>
+        </div>
+        <div class="partner-info">
+          <div class="partner-names">이발리 + 최포핸</div>
+          <div class="partner-record">4승 3패 · 7경기</div>
+        </div>
+        <div class="partner-winrate">
+          <div class="partner-pct">57%</div>
+          <div class="partner-label">승률</div>
+        </div>
+      </div>
+      <div class="partner-card">
+        <div class="partner-avatars">
+          <div class="avatar a3">이</div>
+          <div class="avatar a6">한</div>
+        </div>
+        <div class="partner-info">
+          <div class="partner-names">이발리 + 한드롭</div>
+          <div class="partner-record">3승 4패 · 7경기</div>
+        </div>
+        <div class="partner-winrate">
+          <div class="partner-pct low">43%</div>
+          <div class="partner-label">승률</div>
+        </div>
+      </div>
+      <div class="partner-card">
+        <div class="partner-avatars">
+          <div class="avatar a3">이</div>
+          <div class="avatar a7">오</div>
+        </div>
+        <div class="partner-info">
+          <div class="partner-names">이발리 + 오슬라이스</div>
+          <div class="partner-record">1승 3패 · 4경기</div>
+        </div>
+        <div class="partner-winrate">
+          <div class="partner-pct low">25%</div>
+          <div class="partner-label">승률</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
