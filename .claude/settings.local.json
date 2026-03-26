@@ -40,7 +40,8 @@
       "Bash(taskkill //F //IM node.exe)",
       "Bash(netstat -ano | findstr \":8081\")",
       "Bash(netstat -ano | findstr \"808\")",
-      "Bash(cd \"F:/F폴더/테스트프로젝트/CrewUp\" && rm -rf .expo && npx expo start --web --clear 2>&1)"
+      "Bash(cd \"F:/F폴더/테스트프로젝트/CrewUp\" && rm -rf .expo && npx expo start --web --clear 2>&1)",
+      "Bash(cd \"F:/F폴더/테스트프로젝트/CrewUp\" && cat .env.local 2>/dev/null | grep -v KEY | grep -v TOKEN | head -5; echo \"---\"; ls .env* 2>/dev/null)"
     ]
   }
 }

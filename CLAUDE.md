@@ -167,8 +167,9 @@ eas build --platform all --profile production     # 프로덕션
 ## 브랜치 전략
 - 메인 브랜치: `main`
 - 개발 브랜치: `develop`
-- 작업 브랜치: `sprint{N}` / `feature/*` / `hotfix/*` → develop으로 PR
-- 릴리즈: develop → main 병합 (사용자 직접 수행)
+- 작업 브랜치: `sprint{N}` / `feature/*` / `hotfix/*` → develop에서 분기
+- 스프린트 완료 시: 작업 브랜치 → develop 머지
+- 릴리즈 (develop → main): Phase 완료 시 또는 사용자가 직접 요청할 때만 수행. AI가 임의로 main 머지 금지
 
 ## 배포
 - **웹 (MVP)**: Vercel (Expo 웹 빌드 배포)

@@ -107,10 +107,10 @@ cp -r {기존프로젝트}/.claude/ {새프로젝트}/.claude/
 
 | 기술 스택 | 규칙 파일 | 상태 |
 |-----------|-----------|------|
+| TypeScript | `rules/typescript.md` | 제공됨 |
+| React Native + Expo | `rules/react-native.md` | 제공됨 |
+| Supabase | `rules/supabase.md` | 제공됨 |
 | C# | `rules/csharp.md` | 제공됨 |
-| Python | `rules/python.md` | 필요 시 생성 |
-| TypeScript | `rules/typescript.md` | 필요 시 생성 |
-| React | `rules/react.md` | 필요 시 생성 |
 | Notion 연동 | `rules/notion.md` | 제공됨 |
 
 **규칙 파일이 없는 기술 스택이라면:**
@@ -199,8 +199,12 @@ cp -r {기존프로젝트}/.claude/ {새프로젝트}/.claude/
 │
 ├── rules/                       # 규칙 라이브러리 (기술 스택별 + 워크플로우)
 │   ├── TEMPLATE.md              #   rules 파일 작성 가이드 (메타 템플릿)
+│   ├── session-init.md          #   세션 시작 시 컨텍스트 로딩 규칙
 │   ├── prd-guide.md             #   PRD 작성 가이드 (품질 기준)
 │   ├── sprint-workflow.md       #   스프린트/핫픽스 워크플로우 (범용)
+│   ├── typescript.md            #   TypeScript 베스트 프랙티스
+│   ├── react-native.md          #   React Native + Expo 베스트 프랙티스
+│   ├── supabase.md              #   Supabase 베스트 프랙티스
 │   ├── csharp.md                #   C# 베스트 프랙티스
 │   ├── notion.md                #   Notion 연동 규칙
 │   └── {tech}.md                #   (프로젝트 진행하며 확장)
