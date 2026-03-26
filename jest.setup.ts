@@ -19,6 +19,16 @@ jest.mock('expo-router', () => ({
   },
 }));
 
+// Mock @expo/vector-icons
+jest.mock('@expo/vector-icons', () => {
+  const { Text } = require('react-native');
+  return {
+    Ionicons: (props: any) => Text({ children: props.name }),
+    MaterialIcons: (props: any) => Text({ children: props.name }),
+    AntDesign: (props: any) => Text({ children: props.name }),
+  };
+});
+
 // Mock expo-secure-store
 jest.mock('expo-secure-store', () => ({
   getItemAsync: jest.fn(),
