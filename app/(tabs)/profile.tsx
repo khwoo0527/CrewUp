@@ -5,9 +5,13 @@ import { useForm, Controller } from 'react-hook-form';
 import { useAuth } from '@/features/auth';
 import type { ProfileUpdateData } from '@/features/auth';
 import { ProfileCard } from '@/features/auth/components/ProfileCard';
-import { Button } from '@/shared/components';
-import { APP_VERSION, NICKNAME_MIN_LENGTH, NICKNAME_MAX_LENGTH, COLORS } from '@/shared/constants';
+import { Button, DropdownPicker } from '@/shared/components';
+import { APP_VERSION, NICKNAME_MIN_LENGTH, NICKNAME_MAX_LENGTH, COLORS, REGIONS, REGION_CITIES, MAX_FORM_WIDTH } from '@/shared/constants';
 import { supabase } from '@/services/supabase';
+
+interface ProfileForm extends ProfileUpdateData {
+  city?: string | null;
+}
 
 export default function ProfileScreen() {
   const { profile, signOut, updateProfile } = useAuth();
@@ -15,13 +19,17 @@ export default function ProfileScreen() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [nicknameError, setNicknameError] = useState('');
 
-  const { control, handleSubmit, reset, formState: { errors } } = useForm<ProfileUpdateData>({
+  const { control, handleSubmit, reset, watch, setValue, formState: { errors } } = useForm<ProfileForm>({
     defaultValues: {
       nickname: profile?.nickname ?? '',
       region: profile?.region ?? '',
+      city: profile?.city ?? '',
       bio: profile?.bio ?? '',
     },
   });
+
+  const selectedRegion = watch('region');
+  const districts = selectedRegion ? REGIONS[selectedRegion] ?? [] : [];
 
   const handleSignOut = () => {
     Alert.alert('로그아웃', '정말 로그아웃하시겠습니까?', [
@@ -44,18 +52,18 @@ export default function ProfileScreen() {
     reset({
       nickname: profile?.nickname ?? '',
       region: profile?.region ?? '',
+      city: profile?.city ?? '',
       bio: profile?.bio ?? '',
     });
     setNicknameError('');
     setIsEditVisible(true);
   };
 
-  const onSubmitEdit = async (form: ProfileUpdateData) => {
+  const onSubmitEdit = async (form: ProfileForm) => {
     setIsSubmitting(true);
     setNicknameError('');
 
     try {
-      // 닉네임이 변경된 경우만 중복 체크
       if (form.nickname !== profile?.nickname) {
         const { data } = await supabase
           .from('profiles')
@@ -72,6 +80,7 @@ export default function ProfileScreen() {
       await updateProfile({
         nickname: form.nickname,
         region: form.region || null,
+        city: form.city || null,
         bio: form.bio || null,
       });
       setIsEditVisible(false);
@@ -86,13 +95,13 @@ export default function ProfileScreen() {
   if (!profile) return null;
 
   return (
-    <SafeAreaView className="flex-1 bg-background">
-      <ScrollView contentContainerClassName="p-4 md:max-w-lg md:mx-auto">
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#f0f2f5' }}>
+      <ScrollView contentContainerStyle={{ padding: 16, maxWidth: MAX_FORM_WIDTH, width: '100%', alignSelf: 'center' }}>
         <Text className="text-2xl font-bold text-text-primary mb-4">프로필</Text>
 
         <ProfileCard profile={profile} />
 
-        <View className="mt-6 gap-3">
+        <View style={{ marginTop: 24, gap: 12 }}>
           <Button title="프로필 수정" onPress={openEdit} variant="secondary" fullWidth />
           <Button title="로그아웃" onPress={handleSignOut} variant="danger" fullWidth />
         </View>
@@ -102,24 +111,22 @@ export default function ProfileScreen() {
         </Text>
       </ScrollView>
 
-      {/* 프로필 수정 모달 */}
       <Modal visible={isEditVisible} animationType="slide" presentationStyle="pageSheet">
-        <SafeAreaView className="flex-1 bg-background">
-          <View className="flex-row items-center justify-between p-4 border-b border-border">
+        <SafeAreaView style={{ flex: 1, backgroundColor: '#f0f2f5' }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', padding: 16, borderBottomWidth: 1, borderBottomColor: COLORS.BORDER }}>
             <Pressable onPress={() => setIsEditVisible(false)}>
-              <Text className="text-base text-text-secondary">취소</Text>
+              <Text style={{ fontSize: 16, color: COLORS.TEXT_SECONDARY }}>취소</Text>
             </Pressable>
-            <Text className="text-lg font-bold text-text-primary">프로필 수정</Text>
-            <View className="w-10" />
+            <Text style={{ fontSize: 18, fontWeight: 'bold', color: COLORS.TEXT_PRIMARY }}>프로필 수정</Text>
+            <View style={{ width: 40 }} />
           </View>
 
           <ScrollView
-            contentContainerClassName="p-4 md:max-w-lg md:mx-auto"
+            contentContainerStyle={{ padding: 16, maxWidth: MAX_FORM_WIDTH, width: '100%', alignSelf: 'center' }}
             keyboardShouldPersistTaps="handled"
           >
-            {/* 닉네임 */}
-            <View className="mb-6">
-              <Text className="text-sm font-medium text-text-primary mb-2">닉네임</Text>
+            <View style={{ marginBottom: 24 }}>
+              <Text style={{ fontSize: 14, fontWeight: '500', color: COLORS.TEXT_PRIMARY, marginBottom: 8 }}>닉네임</Text>
               <Controller
                 control={control}
                 name="nickname"
@@ -130,7 +137,16 @@ export default function ProfileScreen() {
                 }}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <TextInput
-                    className="border border-border rounded-xl px-4 py-3 text-base text-text-primary bg-surface"
+                    style={{
+                      borderWidth: 1,
+                      borderColor: COLORS.BORDER,
+                      borderRadius: 12,
+                      paddingHorizontal: 16,
+                      paddingVertical: 12,
+                      fontSize: 16,
+                      color: COLORS.TEXT_PRIMARY,
+                      backgroundColor: COLORS.SURFACE,
+                    }}
                     value={value ?? ''}
                     onChangeText={(text) => {
                       onChange(text);
@@ -142,41 +158,66 @@ export default function ProfileScreen() {
                   />
                 )}
               />
-              {(errors.nickname || nicknameError) && (
-                <Text className="text-error text-sm mt-1">
+              {(errors.nickname || nicknameError) ? (
+                <Text style={{ color: COLORS.ERROR, fontSize: 13, marginTop: 4 }}>
                   {errors.nickname?.message ?? nicknameError}
                 </Text>
-              )}
+              ) : null}
             </View>
 
-            {/* 활동 지역 */}
-            <View className="mb-6">
-              <Text className="text-sm font-medium text-text-primary mb-2">활동 지역</Text>
+            <View style={{ marginBottom: 16 }}>
               <Controller
                 control={control}
                 name="region"
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <TextInput
-                    className="border border-border rounded-xl px-4 py-3 text-base text-text-primary bg-surface"
-                    placeholder="예: 서울 강남구"
+                render={({ field: { value } }) => (
+                  <DropdownPicker
+                    label="활동 지역"
+                    placeholder="시/도 선택"
+                    items={REGION_CITIES}
                     value={value ?? ''}
-                    onChangeText={onChange}
-                    onBlur={onBlur}
-                    placeholderTextColor={COLORS.TEXT_HINT}
+                    onSelect={(v) => {
+                      setValue('region', v);
+                      setValue('city', '');
+                    }}
                   />
                 )}
               />
             </View>
 
-            {/* 소개 */}
-            <View className="mb-8">
-              <Text className="text-sm font-medium text-text-primary mb-2">소개</Text>
+            <View style={{ marginBottom: 24 }}>
+              <Controller
+                control={control}
+                name="city"
+                render={({ field: { value } }) => (
+                  <DropdownPicker
+                    placeholder="구/군 선택"
+                    items={districts}
+                    value={value ?? ''}
+                    onSelect={(v) => setValue('city', v)}
+                    disabled={!selectedRegion}
+                  />
+                )}
+              />
+            </View>
+
+            <View style={{ marginBottom: 24 }}>
+              <Text style={{ fontSize: 14, fontWeight: '500', color: COLORS.TEXT_PRIMARY, marginBottom: 8 }}>소개</Text>
               <Controller
                 control={control}
                 name="bio"
                 render={({ field: { onChange, onBlur, value } }) => (
                   <TextInput
-                    className="border border-border rounded-xl px-4 py-3 text-base text-text-primary bg-surface min-h-[100px]"
+                    style={{
+                      borderWidth: 1,
+                      borderColor: COLORS.BORDER,
+                      borderRadius: 12,
+                      paddingHorizontal: 16,
+                      paddingVertical: 12,
+                      fontSize: 16,
+                      color: COLORS.TEXT_PRIMARY,
+                      backgroundColor: COLORS.SURFACE,
+                      minHeight: 100,
+                    }}
                     placeholder="자기소개를 입력해주세요"
                     value={value ?? ''}
                     onChangeText={onChange}

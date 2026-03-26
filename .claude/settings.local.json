@@ -25,7 +25,22 @@
       "Bash(cd:*)",
       "Bash(grep -l 'href=\"\"\"\"' docs/mockup/*.html)",
       "Bash(gh api:*)",
-      "Bash(gh repo:*)"
+      "Bash(gh repo:*)",
+      "Bash(cd \"F:\\\\F폴더\\\\테스트프로젝트\\\\CrewUp\" && SUPABASE_ACCESS_TOKEN=sbp_81d1ca5e7dee1e1cf2cc7bcac7a0f85b864a5132 npx supabase link --project-ref ozzahhbhexhwzpezucbm 2>&1)",
+      "Bash(cd \"F:\\\\F폴더\\\\테스트프로젝트\\\\CrewUp\" && SUPABASE_ACCESS_TOKEN=sbp_81d1ca5e7dee1e1cf2cc7bcac7a0f85b864a5132 npx supabase db push 2>&1)",
+      "Bash(ls \"F:\\\\F폴더\\\\테스트프로젝트\\\\CrewUp\\\\.claude\\\\agent-memory\\\\sprint-planner\\\\\" 2>/dev/null || echo \"No memory files yet\")",
+      "Bash(cd \"F:\\\\F폴더\\\\테스트프로젝트\\\\CrewUp\" && npx -p typescript tsc --noEmit 2>&1 | head -30)",
+      "Bash(cd \"F:\\\\F폴더\\\\테스트프로젝트\\\\CrewUp\" && ./node_modules/.bin/tsc --noEmit 2>&1 | head -20)",
+      "Bash(cd \"F:\\\\F폴더\\\\테스트프로젝트\\\\CrewUp\" && SUPABASE_ACCESS_TOKEN=sbp_81d1ca5e7dee1e1cf2cc7bcac7a0f85b864a5132 npx supabase sql --project-ref ozzahhbhexhwzpezucbm \"SELECT id, nickname, region, city FROM profiles WHERE nickname = 'khwoo0527';\" 2>&1)",
+      "Bash(cd \"F:\\\\F폴더\\\\테스트프로젝트\\\\CrewUp\" && SUPABASE_ACCESS_TOKEN=sbp_81d1ca5e7dee1e1cf2cc7bcac7a0f85b864a5132 npx supabase db execute --project-ref ozzahhbhexhwzpezucbm \"UPDATE profiles SET nickname = NULL, region = NULL, city = NULL, bio = NULL WHERE nickname = 'khwoo0527';\" 2>&1)",
+      "Bash(cd \"F:\\\\F폴더\\\\테스트프로젝트\\\\CrewUp\" && SUPABASE_ACCESS_TOKEN=sbp_81d1ca5e7dee1e1cf2cc7bcac7a0f85b864a5132 npx supabase db query \"UPDATE profiles SET nickname = NULL, region = NULL, city = NULL, bio = NULL WHERE nickname = 'khwoo0527';\" 2>&1)",
+      "Bash(curl -s -X PATCH \"https://ozzahhbhexhwzpezucbm.supabase.co/rest/v1/profiles?nickname=eq.khwoo0527\" \\\\\n  -H \"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im96emFoaGJoZXhod3pwZXp1Y2JtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ0NzE3NzgsImV4cCI6MjA5MDA0Nzc3OH0.i9kVUFi-Oh7wlb9ww1Yp2F9-s0Q5tq0aYhvUdqUjd24\" \\\\\n  -H \"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im96emFoaGJoZXhod3pwZXp1Y2JtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ0NzE3NzgsImV4cCI6MjA5MDA0Nzc3OH0.i9kVUFi-Oh7wlb9ww1Yp2F9-s0Q5tq0aYhvUdqUjd24\" \\\\\n  -H \"Content-Type: application/json\" \\\\\n  -H \"Prefer: return=representation\" \\\\\n  -d '{\"nickname\": null, \"region\": null, \"city\": null, \"bio\": null}' 2>&1)",
+      "Bash(netstat -ano | grep 8081 | head -5)",
+      "Bash(netstat -ano | findstr 8081)",
+      "Bash(taskkill //F //IM node.exe)",
+      "Bash(netstat -ano | findstr \":8081\")",
+      "Bash(netstat -ano | findstr \"808\")",
+      "Bash(cd \"F:/F폴더/테스트프로젝트/CrewUp\" && rm -rf .expo && npx expo start --web --clear 2>&1)"
     ]
   }
 }

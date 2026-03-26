@@ -2,24 +2,30 @@ import { View, Text, Pressable, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from '@/features/auth';
-import { KAKAO_BRAND_COLOR, KAKAO_TEXT_COLOR, NAVER_BRAND_COLOR, NAVER_TEXT_COLOR } from '@/shared/constants';
+import {
+  GOOGLE_BRAND_COLOR,
+  GOOGLE_TEXT_COLOR,
+  GOOGLE_BORDER_COLOR,
+  KAKAO_BRAND_COLOR,
+  KAKAO_TEXT_COLOR,
+} from '@/shared/constants';
 
 export default function LoginScreen() {
-  const { signInWithKakao, signInWithNaver } = useAuth();
+  const { signInWithGoogle, signInWithKakao } = useAuth();
+
+  const handleGoogleLogin = async () => {
+    try {
+      await signInWithGoogle();
+    } catch {
+      Alert.alert('로그인 실패', '구글 로그인 중 문제가 발생했습니다.');
+    }
+  };
 
   const handleKakaoLogin = async () => {
     try {
       await signInWithKakao();
     } catch {
       Alert.alert('로그인 실패', '카카오 로그인 중 문제가 발생했습니다.');
-    }
-  };
-
-  const handleNaverLogin = async () => {
-    try {
-      await signInWithNaver();
-    } catch {
-      Alert.alert('로그인 실패', '네이버 로그인 중 문제가 발생했습니다.');
     }
   };
 
@@ -40,6 +46,22 @@ export default function LoginScreen() {
         {/* 소셜 로그인 버튼 */}
         <View className="w-full gap-3">
           <Pressable
+            onPress={handleGoogleLogin}
+            accessibilityRole="button"
+            accessibilityLabel="구글로 시작하기"
+            className="flex-row items-center justify-center py-4 px-6 rounded-xl active:opacity-80"
+            style={{
+              backgroundColor: GOOGLE_BRAND_COLOR,
+              borderWidth: 1,
+              borderColor: GOOGLE_BORDER_COLOR,
+            }}
+          >
+            <Text className="text-base font-semibold" style={{ color: GOOGLE_TEXT_COLOR }}>
+              Google로 시작하기
+            </Text>
+          </Pressable>
+
+          <Pressable
             onPress={handleKakaoLogin}
             accessibilityRole="button"
             accessibilityLabel="카카오로 시작하기"
@@ -48,18 +70,6 @@ export default function LoginScreen() {
           >
             <Text className="text-base font-semibold" style={{ color: KAKAO_TEXT_COLOR }}>
               카카오로 시작하기
-            </Text>
-          </Pressable>
-
-          <Pressable
-            onPress={handleNaverLogin}
-            accessibilityRole="button"
-            accessibilityLabel="네이버로 시작하기"
-            className="flex-row items-center justify-center py-4 px-6 rounded-xl active:opacity-80"
-            style={{ backgroundColor: NAVER_BRAND_COLOR }}
-          >
-            <Text className="text-base font-semibold" style={{ color: NAVER_TEXT_COLOR }}>
-              네이버로 시작하기
             </Text>
           </Pressable>
         </View>

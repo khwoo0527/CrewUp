@@ -14,17 +14,17 @@ const useAuthStore = create<AuthStore>((set, get) => ({
   isAuthenticated: false,
   isOnboarded: false,
 
-  signInWithKakao: async () => {
+  signInWithGoogle: async () => {
     const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'kakao',
+      provider: 'google',
       options: { redirectTo: window.location.origin },
     });
     if (error) throw error;
   },
 
-  signInWithNaver: async () => {
+  signInWithKakao: async () => {
     const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'naver' as 'github', // Supabase SDK 타입에 naver 없음 — runtime에서는 정상 동작
+      provider: 'kakao',
       options: { redirectTo: window.location.origin },
     });
     if (error) throw error;
@@ -117,7 +117,7 @@ export function useAuth() {
     // 인증 상태 변경 감지
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
-        if (event === 'SIGNED_IN' && session?.user) {
+        if ((event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED' || event === 'INITIAL_SESSION') && session?.user) {
           const profile = await fetchProfile(session.user.id);
           useAuthStore.setState({
             session,

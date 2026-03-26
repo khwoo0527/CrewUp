@@ -1,8 +1,6 @@
-import { View, Text, ScrollView } from 'react-native';
-import { SafeAreaView } from 'react-native';
-import { Card } from '@/shared/components';
-import { Badge } from '@/shared/components';
-import { APP_NAME } from '@/shared/constants';
+import { View, Text, ScrollView, SafeAreaView } from 'react-native';
+import { Card, Badge } from '@/shared/components';
+import { APP_NAME, MAX_CONTENT_WIDTH } from '@/shared/constants';
 
 const DUMMY_CLUBS = [
   { id: '1', name: 'TenniSweet', desc: '강남 저녁 모임, 20~40대 환영', members: 32, region: '강남/서초' },
@@ -15,33 +13,36 @@ const DUMMY_CLUBS = [
 
 export default function HomeScreen() {
   return (
-    <SafeAreaView className="flex-1 bg-background">
-      <ScrollView className="flex-1">
-        <View className="px-4 pt-6 pb-2 md:px-8 lg:max-w-content lg:mx-auto">
-          <Text className="text-2xl font-bold text-gray-900 text-center">
-            🎾 {APP_NAME}
-          </Text>
-          <Text className="text-sm text-gray-500 text-center mt-1 mb-6">
-            관심 있는 테니스 동호회를 찾아보세요
-          </Text>
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#f0f2f5' }}>
+      <ScrollView
+        contentContainerStyle={{
+          padding: 16,
+          maxWidth: MAX_CONTENT_WIDTH,
+          width: '100%',
+          alignSelf: 'center',
+        }}
+      >
+        <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#333', textAlign: 'center' }}>
+          🎾 {APP_NAME}
+        </Text>
+        <Text style={{ fontSize: 14, color: '#777', textAlign: 'center', marginTop: 4, marginBottom: 24 }}>
+          관심 있는 테니스 동호회를 찾아보세요
+        </Text>
 
-          <View className="flex-col md:flex-row md:flex-wrap">
-            {DUMMY_CLUBS.map((club) => (
-              <View key={club.id} className="w-full md:w-1/2 lg:w-1/3 p-2">
-                <Card>
-                  <Text className="text-base font-bold text-gray-900 mb-1">
-                    🎾 {club.name}
-                  </Text>
-                  <Text className="text-sm text-gray-500 mb-3">{club.desc}</Text>
-                  <View className="flex-row items-center gap-3 mb-3">
-                    <Text className="text-xs text-gray-400">👥 {club.members}명</Text>
-                    <Text className="text-xs text-gray-400">📍 {club.region}</Text>
-                  </View>
-                  <Badge text="모집중" variant="success" />
-                </Card>
+        <View style={{ gap: 12 }}>
+          {DUMMY_CLUBS.map((club) => (
+            <Card key={club.id}>
+              <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#333', marginBottom: 4 }}>
+                🎾 {club.name}
+              </Text>
+              <Text style={{ fontSize: 14, color: '#777', marginBottom: 12 }}>{club.desc}</Text>
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12, marginBottom: 12 }}>
+                <Text style={{ fontSize: 12, color: '#999' }}>👥 {club.members}명</Text>
+                <Text style={{ fontSize: 12, color: '#999' }}>📍 {club.region}</Text>
               </View>
-            ))}
-          </View>
+              <Badge text="모집중" variant="success" />
+            </Card>
+          ))}
         </View>
       </ScrollView>
     </SafeAreaView>

@@ -61,13 +61,7 @@ export function Button({
       onPress={onPress}
       disabled={isDisabled}
       accessibilityRole="button"
-      className={`
-        rounded-full items-center justify-center flex-row
-        ${variantStyle.container}
-        ${sizeStyle.container}
-        ${fullWidth ? 'w-full' : ''}
-        ${isDisabled ? 'opacity-50' : ''}
-      `}
+      className={`rounded-full items-center justify-center flex-row ${variantStyle.container} ${sizeStyle.container} ${fullWidth ? 'w-full' : ''} ${isDisabled ? 'opacity-50' : ''}`}
     >
       {isLoading ? (
         <ActivityIndicator size="small" color={variantStyle.spinner} />

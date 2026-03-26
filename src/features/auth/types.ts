@@ -13,8 +13,8 @@ export interface AuthState {
 }
 
 export interface AuthActions {
+  signInWithGoogle: () => Promise<void>;
   signInWithKakao: () => Promise<void>;
-  signInWithNaver: () => Promise<void>;
   signOut: () => Promise<void>;
   updateProfile: (data: ProfileUpdateData) => Promise<void>;
   refreshProfile: () => Promise<void>;

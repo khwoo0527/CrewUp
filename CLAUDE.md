@@ -116,6 +116,7 @@ CrewUp/
 ├── deploy.md                     # 배포 기록
 ├── docs/                         # 프로젝트 문서
 │   ├── prd.md                    #   요구사항 정의서
+│   ├── backlog.md                #   Product Backlog (리뷰 발견 이슈)
 │   ├── phase/                    #   Phase 계획서
 │   ├── sprint/                   #   Sprint 명세서
 │   └── mockup/                   #   기존 HTML 목업 (참고용)

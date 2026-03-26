@@ -6,7 +6,7 @@ node_modules/
 dist/
 web-build/
 
-# Environment variables
+# Environment variables (민감한 키만 제외)
 .env.local
 .env.production
 
