@@ -35,6 +35,7 @@ export function useCreateClub() {
       router.replace(`/club/${club.id}`);
     },
     onError: (error: Error) => {
+      console.error('[CreateClub] 생성 실패:', error);
       Alert.alert('생성 실패', error.message);
     },
   });

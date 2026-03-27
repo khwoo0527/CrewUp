@@ -63,8 +63,6 @@ export function ClubForm({ sportCategoryId, onSubmit, isLoading }: ClubFormProps
   const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ['images'],
-      allowsEditing: true,
-      aspect: [16, 9],
       quality: 0.8,
     });
 
