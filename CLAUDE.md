@@ -7,10 +7,16 @@
 - 상세 요구사항/장기 목표: `docs/prd.md`에 정의 — CLAUDE.md는 기술 정의에 집중
 
 ## 비전 & 확장 계획
-- **Phase 1 (MVP)**: 테니스 동호회 관리 — 일정/멤버/알림/참석
-- **Phase 2**: 결제 시스템 — 참석비, 노쇼비, 회비 충전/출금 (토스페이먼츠)
-- **Phase 3**: 다종목 동호회 플랫폼 — 축구, 골프, 배드민턴 등 스포츠 종목 확장
-- **Phase 4**: 범용 커뮤니티 — 동호회 외 개인 유저(인력시장 300~400명 규모), 지역/목적별 분류, 구독 모델
+
+> Phase 번호는 ROADMAP.md와 통일. 상세 계획은 ROADMAP.md 참조.
+
+- **Phase 0~5 (MVP)**: 테니스 동호회 관리 — 기반/인증/동호회/일정(+목동 자동등록)/알림/배포
+- **Phase 6**: 앱 스토어 출시 — Google Play + App Store
+- **Phase 7**: 자동 일정 확장 — 인기 테니스장 5곳 크롤러
+- **Phase 8**: 인력시장 — 단발성 코트 모집/참여 (카톡방 ~300명 대체), 노쇼 관리, 운영자 도구
+- **Phase 9**: 결제 시스템 — 참석비, 노쇼비, 회비 충전/출금 (토스페이먼츠)
+- **Phase 10**: 다종목 플랫폼 — 동호회+인력시장 모두 다종목 확장
+- **Phase 11**: 지역 기반 + 커뮤니티 — 위치 검색, 게시판, 장비거래, 코트후기
 
 > **설계 원칙**: MVP는 테니스에 집중하되, 데이터 모델과 코드 구조는 처음부터 종목/지역/카테고리 확장이 가능하도록 설계한다. "tennis"를 하드코딩하지 않는다.
 
@@ -22,7 +28,7 @@
 - 상태 관리: Zustand (클라이언트) + @tanstack/react-query (서버)
 - 스타일링: NativeWind (Tailwind CSS for React Native)
 - 알림: expo-notifications (FCM) + Supabase Realtime
-- 소셜 로그인: 카카오 + 네이버 (Supabase Auth)
+- 소셜 로그인: Google + 카카오 (Supabase Auth) — 네이버는 미구현(backlog)
 - 폼 검증: react-hook-form + zod
 - 리스트: @shopify/flash-list
 - 이미지: expo-image
@@ -42,7 +48,7 @@ CrewUp/
 │   ├── index.tsx                 #   진입점 (스플래시 → 로그인/홈 분기)
 │   ├── (auth)/                   #   인증 플로우
 │   │   ├── _layout.tsx
-│   │   ├── login.tsx             #     소셜 로그인 (카카오/네이버)
+│   │   ├── login.tsx             #     소셜 로그인 (Google/카카오)
 │   │   └── onboarding.tsx        #     최초 가입 시 프로필 설정
 │   ├── (tabs)/                   #   메인 탭 네비게이션
 │   │   ├── _layout.tsx
@@ -52,13 +58,14 @@ CrewUp/
 │   │   └── profile.tsx           #     내 프로필
 │   └── club/
 │       ├── [id]/
-│       │   ├── _layout.tsx       #     동호회 내부 (회원만 접근 — RLS)
-│       │   ├── schedule.tsx      #     일정 관리 (캘린더)
-│       │   ├── members.tsx       #     멤버 목록 (회원 공통)
-│       │   ├── stats.tsx         #     통계 (회원 공통)
-│       │   └── manage.tsx        #     동호회 관리 (클럽장/운영진 전용)
-│       ├── [id]/join.tsx         #     가입 신청 페이지 (비회원)
-│       └── create.tsx            #     동호회 생성
+│       │   ├── _layout.tsx       #     동호회 내부 레이아웃
+│       │   ├── index.tsx         #     동호회 상세/소개 (✅ Sprint 2)
+│       │   ├── schedule.tsx      #     일정 관리 (📋 Sprint 4)
+│       │   ├── members.tsx       #     멤버 목록 (📋 Sprint 3)
+│       │   ├── stats.tsx         #     통계 (📋 Sprint 7)
+│       │   └── manage.tsx        #     동호회 관리 (📋 Sprint 3)
+│       ├── [id]/join.tsx         #     가입 신청 (📋 Sprint 3)
+│       └── create.tsx            #     동호회 생성 (✅ Sprint 2)
 ├── src/
 │   ├── features/                 # 기능별 폴더
 │   │   ├── auth/                 #   인증 (소셜 로그인, 세션)
