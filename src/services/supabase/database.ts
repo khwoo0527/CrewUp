@@ -161,6 +161,29 @@ export async function createClubMember(
 }
 
 /**
+ * 특정 동호회의 멤버 여부 확인
+ */
+export async function checkClubMembership(
+  clubId: string,
+  userId: string,
+): Promise<{ isMember: boolean; role: string | null }> {
+  const { data, error } = await supabase
+    .from('club_members')
+    .select('role')
+    .eq('club_id', clubId)
+    .eq('user_id', userId)
+    .eq('status', 'active')
+    .maybeSingle();
+
+  if (error) {
+    console.error('[checkClubMembership] 에러:', error.message);
+    return { isMember: false, role: null };
+  }
+
+  return { isMember: !!data, role: data?.role ?? null };
+}
+
+/**
  * 내가 가입한 동호회 목록
  */
 export async function fetchMyClubs(userId: string): Promise<ClubWithDetails[]> {

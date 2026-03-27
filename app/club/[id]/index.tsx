@@ -10,7 +10,7 @@ import { ClubDetailHeader } from '@/features/club/components/ClubDetailHeader';
 export default function ClubDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
-  const { club, isLoading, error } = useClubDetail(id ?? '');
+  const { club, isLoading, error, isMember, memberRole } = useClubDetail(id ?? '');
 
   if (isLoading) {
     return (
@@ -54,7 +54,7 @@ export default function ClubDetailScreen() {
           </Text>
         </View>
 
-        <ClubDetailHeader club={club} />
+        <ClubDetailHeader club={club} isMember={isMember} memberRole={memberRole} />
       </ScrollView>
     </SafeAreaView>
   );

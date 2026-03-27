@@ -6,9 +6,17 @@ import type { ClubWithDetails } from '../types';
 
 interface ClubDetailHeaderProps {
   club: ClubWithDetails;
+  isMember?: boolean;
+  memberRole?: string | null;
 }
 
-export function ClubDetailHeader({ club }: ClubDetailHeaderProps) {
+const ROLE_LABELS: Record<string, string> = {
+  owner: '동호회장',
+  admin: '운영진',
+  member: '회원',
+};
+
+export function ClubDetailHeader({ club, isMember, memberRole }: ClubDetailHeaderProps) {
   return (
     <View style={{ gap: 16 }}>
       {/* 대표 이미지 */}
@@ -74,14 +82,29 @@ export function ClubDetailHeader({ club }: ClubDetailHeaderProps) {
         <InfoRow label="공개 여부" value={club.is_public ? '공개' : '비공개'} />
       </View>
 
-      {/* 가입 신청 버튼 — Sprint 3에서 활성화 */}
-      <Button
-        title="가입 신청"
-        onPress={() => {}}
-        fullWidth
-        size="lg"
-        disabled
-      />
+      {/* 가입 상태에 따른 버튼 */}
+      {isMember ? (
+        <View
+          style={{
+            backgroundColor: COLORS.PRIMARY_LIGHT,
+            borderRadius: 20,
+            padding: 14,
+            alignItems: 'center',
+          }}
+        >
+          <Text style={{ fontSize: 15, fontWeight: '600', color: COLORS.PRIMARY }}>
+            {ROLE_LABELS[memberRole ?? 'member'] ?? '회원'}으로 가입되어 있습니다
+          </Text>
+        </View>
+      ) : (
+        <Button
+          title={club.is_recruiting ? '가입 신청' : '모집 마감'}
+          onPress={() => {}}
+          fullWidth
+          size="lg"
+          disabled={!club.is_recruiting}
+        />
+      )}
     </View>
   );
 }
