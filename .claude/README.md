@@ -138,8 +138,7 @@ graph TD
 │   ├── workflow/                      워크플로우 규칙
 │   │   ├── session-init.md              세션 컨텍스트 로딩 규칙
 │   │   ├── prd-guide.md                 PRD 작성 품질 가이드
-│   │   ├── sprint-workflow.md           스프린트/핫픽스 워크플로우
-│   │   └── notion.md                    Notion 문서 작성 가이드
+│   │   └── sprint-workflow.md           스프린트/핫픽스 워크플로우
 │   └── tech/                          기술 스택 전문 규칙
 │       ├── typescript.md                TypeScript 베스트 프랙티스
 │       ├── react-native.md              React Native + Expo
@@ -163,9 +162,10 @@ graph TD
 │   ├── hotfix-close.md                Hotfix 마무리
 │   └── deploy-prod.md                 배포 준비
 │
-├── ⌨️ commands/                      사용자 실행 커맨드 (2개)
+├── ⌨️ commands/                      사용자 실행 커맨드 (3개)
 │   ├── sprint-dev.md                  /sprint-dev {N}
-│   └── design-review.md              /design-review — DESIGN.md 풀 파워 검증
+│   ├── design-review.md              /design-review — DESIGN.md 풀 파워 검증
+│   └── to-notion.md                   /to-notion — Notion 문서 작성 가이드
 │
 ├── 🧠 memory/                       사용자 선호 (범용, 프로젝트 간 재사용)
 │   ├── MEMORY.md                      메모리 인덱스
@@ -220,7 +220,6 @@ graph TD
 | [session-init.md](rules/workflow/session-init.md) | 세션 시작 시 컨텍스트 로딩 | 매 세션 |
 | [sprint-workflow.md](rules/workflow/sprint-workflow.md) | 스프린트/핫픽스 프로세스 | Sprint 작업 시 |
 | [prd-guide.md](rules/workflow/prd-guide.md) | PRD 작성 품질 기준 | PRD 작성/검토 시 |
-| [notion.md](rules/workflow/notion.md) | Notion 문서 작성 가이드 | 문서 정리 시 |
 | [RULES-TEMPLATE.md](templates/RULES-TEMPLATE.md) | rules 파일 작성 메타 템플릿 | 새 규칙 생성 시 |
 
 ### 기술 전문 규칙 (제공됨)
@@ -267,6 +266,7 @@ graph TD
 |--------|------|
 | `/sprint-dev {N}` | sprint{N}.md를 읽고 Task별로 구현 실행 |
 | `/design-review` | DESIGN.md 기반 디자인 시스템 풀 파워 검증 |
+| `/to-notion` | Notion 문서 작성 가이드 (온디맨드) |
 
 ---
 

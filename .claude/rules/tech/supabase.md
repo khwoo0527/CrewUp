@@ -1,7 +1,5 @@
 ---
 paths:
-  - "**/*.ts"
-  - "**/*.tsx"
   - "**/supabase/**"
   - ".env"
   - ".env.local"

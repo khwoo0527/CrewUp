@@ -22,7 +22,7 @@
 
 ## 기술 스택
 - 언어: TypeScript (Strict Mode)
-- 프레임워크: React Native (Expo SDK 52+)
+- 프레임워크: React Native (Expo SDK 55)
 - 라우팅: Expo Router (파일 기반)
 - 백엔드/DB: Supabase (PostgreSQL + Auth + Realtime + Storage)
 - 상태 관리: Zustand (클라이언트) + @tanstack/react-query (서버)

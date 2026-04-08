@@ -32,7 +32,7 @@ paths:
 |----------|----------|-------------------|
 | **코드 구현** (Sprint 등) | MEMORY.md → rules/tech/{tech}.md → sprint-workflow.md | ROADMAP.md, sprint{N}.md |
 | **코드 리뷰** | MEMORY.md → rules/tech/{tech}.md | sprint-workflow.md (품질 기준) |
-| **문서 작성** (PRD, 정리 등) | MEMORY.md → prd-guide.md 또는 notion.md | ROADMAP.md |
+| **문서 작성** (PRD, 정리 등) | MEMORY.md → prd-guide.md | ROADMAP.md, `/to-notion` (Notion 작성 시) |
 | **Sprint 계획** | MEMORY.md → sprint-workflow.md → ROADMAP.md | rules/tech/{tech}.md (Task 설계 시) |
 | **단순 질문/탐색** | MEMORY.md | 질문 관련 rules (해당 시) |
 | **새 프로젝트 시작** | MEMORY.md → README.md | session-init.md 정리 절차 |

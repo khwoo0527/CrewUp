@@ -26,10 +26,12 @@ memory: project
    - 예: 기술 스택이 C#이면 `rules/tech/csharp.md`, Python이면 `rules/tech/python.md`
    - **해당 기술 스택의 rules/tech/{tech}.md가 없는 경우**: 작업을 시작하기 전에 사용자에게 rules/tech/{tech}.md 생성을 먼저 제안합니다. 사용자가 동의하면 **`.claude/templates/RULES-TEMPLATE.md`를 참조하여** 해당 기술 스택의 시니어 수준 규칙 파일(언어 + 프레임워크 + 실전 패턴)을 생성한 뒤 작업을 진행합니다.
 3. `.claude/rules/workflow/sprint-workflow.md`를 읽어 워크플로우 규칙을 확인합니다.
+4. `.claude/rules/workflow/prd-guide.md`를 읽어 PRD 품질 기준을 확인합니다.
 
 ### 2단계: 요구사항 분석
 
 - `docs/prd.md` (또는 사용자가 지정한 문서)를 읽습니다.
+- PRD가 prd-guide.md의 품질 기준에 미달하는 경우(시나리오 누락, 우선순위 미분류 등), ROADMAP 생성 전에 사용자에게 보완을 요청합니다.
 - 기존 `ROADMAP.md`가 있다면 현재 상태를 파악합니다.
 - 추출할 항목:
   - 핵심 기능 목록 및 우선순위

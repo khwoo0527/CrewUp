@@ -1,11 +1,3 @@
----
-paths:
-  - "**/notion*"
-  - "ROADMAP.md"
-  - "deploy.md"
-  - "docs/**"
----
-
 # Notion 문서 작성 규칙
 
 > 이 파일은 AI가 프로젝트 정보를 Notion에 정리할 때 따르는 **문서 작성 품질 가이드**입니다.

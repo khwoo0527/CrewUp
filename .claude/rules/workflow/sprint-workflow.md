@@ -26,13 +26,13 @@ paths:
 **규칙 파일 로드 원칙:**
 - CLAUDE.md에 명시된 기술 스택에 **정확히 매칭되는** rules/tech/{tech}.md만 로드합니다.
 - 관련 없는 기술 스택의 rules 파일은 **절대 로드하지 않습니다.** (예: Python 프로젝트에서 rules/tech/csharp.md 로드 금지)
-- `rules/workflow/sprint-workflow.md`, `rules/workflow/notion.md` 등 기술 스택이 아닌 워크플로우/연동 규칙은 해당 시 로드합니다.
+- `rules/workflow/sprint-workflow.md` 등 기술 스택이 아닌 워크플로우 규칙은 해당 시 로드합니다. Notion 문서 작성은 `/to-notion` 커맨드로 온디맨드 실행합니다.
 
 **예시:**
 - CLAUDE.md에 `tech_stack: C#, WinForms` → `rules/tech/csharp.md` 로드
 - CLAUDE.md에 `tech_stack: Python, FastAPI` → `rules/tech/python.md` 로드
 - CLAUDE.md에 `tech_stack: TypeScript, React` → `rules/tech/react.md` + `rules/tech/typescript.md` 로드
-- Notion 문서 작성이 필요하면 → `rules/workflow/notion.md` 추가 로드
+- Notion 문서 작성이 필요하면 → `/to-notion` 커맨드 실행
 
 **해당 기술 스택의 rules/tech/{tech}.md가 없는 경우:**
 - 에이전트는 작업을 시작하기 전에 **사용자에게 rules/tech/{tech}.md 생성을 먼저 제안**합니다.
