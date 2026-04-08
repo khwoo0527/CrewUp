@@ -1,11 +1,13 @@
 # Sprint 1: 인증 시스템
 
+> **⚠️ 디자인 변경 안내 (2026-04-07):** 이 Sprint에서 구현한 UI(로그인, 온보딩 화면)는 구 녹색(#2e7d32) 디자인 기준입니다. 이후 Cal.com 모노크롬 디자인 시스템(`/DESIGN.md`)으로 전환되었으며, UI 코드 마이그레이션은 별도 진행 예정입니다.
+
 **Goal:** 카카오/네이버 소셜 로그인, 온보딩(프로필 설정), 세션 관리를 구축하여 이후 모든 기능의 사용자 식별 기반을 마련한다.
 
 **Architecture:** Supabase Auth OAuth → 세션 자동 관리(AsyncStorage) → useAuth 훅으로 전역 상태 감지 → _layout.tsx에서 인증 가드. 프로필은 auth.users 확장 테이블(profiles)로 관리.
 
 **Tech Stack:** TypeScript, Expo Router, Supabase Auth + Storage, NativeWind
-**적용 규칙:** `rules/typescript.md`, `rules/react-native.md`, `rules/supabase.md`
+**적용 규칙:** `rules/tech/typescript.md`, `rules/tech/react-native.md`, `rules/tech/supabase.md`
 
 **Sprint 기간:** 2026-03-25 ~ 2026-03-26
 **이전 스프린트:** Sprint 0 (프로젝트 기반 구축 완료)

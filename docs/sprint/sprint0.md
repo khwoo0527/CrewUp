@@ -1,11 +1,13 @@
 # Sprint 0: 프로젝트 기반 구축
 
+> **⚠️ 디자인 변경 안내 (2026-04-07):** 이 Sprint에서 구축한 디자인 토큰(녹색 #2e7d32 기반)은 이후 Cal.com 모노크롬 디자인 시스템(`/DESIGN.md`)으로 전환되었습니다. 코드 예시의 색상값은 당시 기준이며, 현재 디자인 기준은 DESIGN.md를 참조하세요.
+
 **Goal:** Expo 프로젝트를 초기화하고, Supabase 연동, 네비게이션 골격, 공통 컴포넌트/테마를 구축하여 이후 모든 Sprint의 기반을 마련한다.
 
 **Architecture:** Expo Router(파일 기반 라우팅) + NativeWind(Tailwind) + Supabase 클라이언트 싱글톤. 모바일 퍼스트 반응형 기반을 이 Sprint에서 확립한다.
 
 **Tech Stack:** TypeScript, Expo SDK 52+, Expo Router v4, NativeWind v4, Supabase JS, Zustand, React Query
-**적용 규칙:** `rules/typescript.md`, `rules/react-native.md`, `rules/supabase.md`
+**적용 규칙:** `rules/tech/typescript.md`, `rules/tech/react-native.md`, `rules/tech/supabase.md`
 
 **Sprint 기간:** 2026-03-25 ~ 2026-03-25
 **이전 스프린트:** 없음 (최초 Sprint)
@@ -30,9 +32,9 @@ app/                    ← 라우팅만 (비즈니스 로직 금지)
 ## 코드 컨벤션 (rules 참조)
 
 > **상세 규칙은 rules 원본이 기준이다.** 여기에는 Sprint 0에서 특히 중요한 핵심만 발췌.
-> - `rules/typescript.md` — 타입 안전성, 네이밍, 코드 구조, 안티패턴
-> - `rules/react-native.md` — 컴포넌트 설계, 훅 규칙, 스타일링, 반응형
-> - `rules/supabase.md` — 클라이언트 싱글톤, 환경 변수 보안
+> - `rules/tech/typescript.md` — 타입 안전성, 네이밍, 코드 구조, 안티패턴
+> - `rules/tech/react-native.md` — 컴포넌트 설계, 훅 규칙, 스타일링, 반응형
+> - `rules/tech/supabase.md` — 클라이언트 싱글톤, 환경 변수 보안
 
 ### Sprint 0 핵심 포인트
 
@@ -104,7 +106,7 @@ app/                    ← 라우팅만 (비즈니스 로직 금지)
   ```
 
 **Step 2: TypeScript 설정 강화**
-- `tsconfig.json` 수정 (rules/typescript.md의 권장 설정):
+- `tsconfig.json` 수정 (rules/tech/typescript.md의 권장 설정):
   ```json
   {
     "compilerOptions": {

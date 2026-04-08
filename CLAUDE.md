@@ -34,10 +34,11 @@
 - 이미지: expo-image
 
 ## 적용되는 규칙 파일
-- `.claude/rules/typescript.md` — TypeScript 시니어 규칙
-- `.claude/rules/react-native.md` — React Native + Expo 시니어 규칙
-- `.claude/rules/supabase.md` — Supabase 시니어 규칙
-- `.claude/rules/sprint-workflow.md` — 스프린트 워크플로우
+- `.claude/rules/tech/typescript.md` — TypeScript 시니어 규칙
+- `.claude/rules/tech/react-native.md` — React Native + Expo 시니어 규칙
+- `.claude/rules/tech/supabase.md` — Supabase 시니어 규칙
+- `.claude/rules/workflow/sprint-workflow.md` — 스프린트 워크플로우
+- `DESIGN.md` — 프로젝트 디자인 시스템 (Cal.com 기반)
 
 ## 프로젝트 구조
 
@@ -129,6 +130,7 @@ CrewUp/
 │   └── mockup/                   #   기존 HTML 목업 (참고용)
 ├── app.json                      # Expo 설정
 ├── app.config.ts                 # Expo 동적 설정
+├── DESIGN.md                     # 디자인 시스템 (Cal.com 기반)
 ├── tsconfig.json
 ├── tailwind.config.js            # NativeWind/Tailwind 설정
 ├── package.json
@@ -194,37 +196,23 @@ SUPABASE_SERVICE_ROLE_KEY=        # Supabase service_role 키 (서버 전용, EX
 
 ## 코드 컨벤션
 - TypeScript Strict Mode 필수
-- 네이밍: `rules/typescript.md` + `rules/react-native.md` 참조
+- 네이밍: `rules/tech/typescript.md` + `rules/tech/react-native.md` 참조
 - 컴포넌트: 함수형 컴포넌트 + 훅 (클래스 컴포넌트 사용 금지, Error Boundary 제외)
 - 스타일: NativeWind(Tailwind) 우선, 복잡한 동적 스타일만 StyleSheet
 - 커밋 메시지: Conventional Commits (`feat:`, `fix:`, `refactor:`, `docs:`, `chore:`)
-- import 순서: `rules/react-native.md`의 import 규칙 참조
+- import 순서: `rules/tech/react-native.md`의 import 규칙 참조
 
 ## 디자인 시스템
 
-### 색상 (기존 목업 기반)
-- Primary: `#2e7d32` (녹색 — 테니스/자연)
-- Primary Dark: `#1b5e20`
-- Error: `#e53935`
-- Warning: `#f57c00`
-- Info: `#1565c0`
-- Background: `#f0f2f5`
-- Surface: `#ffffff`
-- Text Primary: `#333333`
-- Text Secondary: `#777777`
-- Border: `#e0e0e0`
+> 상세 디자인 규격은 `/DESIGN.md` (Cal.com 기반)에 정의. 아래는 핵심 요약.
 
-### 타이포그래피
-- 기본 폰트: 시스템 폰트 (Segoe UI / San Francisco / Roboto)
-- 제목: 20-26px, bold
-- 본문: 14-15px, regular
-- 캡션: 11-13px, regular/medium
-
-### 컴포넌트 기준
-- 카드: 12px border-radius, 1px border, 24px padding
-- 버튼: 20px border-radius (pill), 8-14px padding
-- 뱃지: 10px border-radius, 1-6px padding
+- 스타일: 모노크롬 (그레이스케일, 브랜드 컬러 없음)
+- Primary Text: `#242424`, Secondary: `#898989`, Background: `#ffffff`
+- 타이포: Cal Sans (제목, weight 600) + Inter (본문)
+- 카드: 8-12px radius, ring shadow 기반 elevation
+- 버튼: `#242424` bg + white text, 6-8px radius
 - 터치 영역: 최소 44x44pt
+- 간격: 8px 기반, 섹션 간 80-96px
 
 ## 데이터 모델 (개요)
 
@@ -259,7 +247,8 @@ profiles 1:N notifications
 
 ## 기존 목업 참고
 
-> **주의: 목업은 UI 느낌 참고용**이며, 기능 명세나 데이터 구조의 근거가 아닙니다.
+> **주의: 목업은 레이아웃/구조 참고용**이며, 기능 명세나 데이터 구조의 근거가 아닙니다.
+> 목업의 색상/스타일은 구 녹색(#2e7d32) 디자인 기준이며, 현재 디자인 시스템은 `/DESIGN.md` (Cal.com 모노크롬)입니다.
 > 실제 화면 설계는 PRD와 Sprint 명세서를 기준으로 합니다.
 
 - `index.html` / `main.html` — 동호회 카드 레이아웃, 검색 UI 느낌

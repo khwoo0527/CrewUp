@@ -121,9 +121,12 @@ CrewUp/
 │   ├── shared/       # 공통 컴포넌트, 훅, 유틸, 상수, 스타일
 │   ├── services/     # Supabase 클라이언트, 쿼리 함수
 │   └── config/       # 환경 변수
-├── supabase/         # 마이그레이션, 시드 데이터
+├── supabase/         # 마이그레이션, 시드 데이터, Edge Functions
+├── assets/           # 이미지, 폰트
 ├── docs/             # PRD, Sprint 명세서, Backlog
+├── .claude/          # AI 개발 프레임워크
 ├── CLAUDE.md         # 프로젝트 기술 정의
+├── DESIGN.md         # 디자인 시스템 (Cal.com 기반)
 └── ROADMAP.md        # 개발 로드맵 (Phase 0~10)
 ```
 
@@ -151,6 +154,7 @@ CrewUp/
 | 문서 | 설명 |
 |------|------|
 | [CLAUDE.md](CLAUDE.md) | 프로젝트 기술 정의 (기술 스택, 구조, 빌드 명령) |
+| [DESIGN.md](DESIGN.md) | 디자인 시스템 (Cal.com 기반 모노크롬) |
 | [ROADMAP.md](ROADMAP.md) | 10 Phase 개발 로드맵 |
 | [docs/prd.md](docs/prd.md) | 상세 요구사항 정의서 |
 | [docs/backlog.md](docs/backlog.md) | Product Backlog (이슈 추적) |

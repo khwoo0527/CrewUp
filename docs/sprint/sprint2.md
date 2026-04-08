@@ -1,11 +1,13 @@
 # Sprint 2: DB 스키마 + 동호회 CRUD
 
+> **⚠️ 디자인 시스템 변경 (2026-04-07):** 프로젝트 디자인이 Cal.com 모노크롬(`/DESIGN.md`)으로 전환되었습니다. UI 구현 시 DESIGN.md를 참조하세요. 기존 녹색(#2e7d32) 디자인 토큰은 아직 코드에 남아있으며, 마이그레이션은 별도 진행 예정입니다(backlog 참조).
+
 **Goal:** 동호회의 데이터 모델(sport_categories, clubs, club_members, join_requests)을 구축하고, 동호회 생성/목록/상세/내 동호회 화면을 구현하여 "동호회를 만들고 찾을 수 있는" 상태를 만든다.
 
 **Architecture:** Supabase Cloud에 마이그레이션으로 4개 테이블 + RLS 정책을 배포한다. `supabase gen types`로 DB 타입을 재생성하고, `src/features/club/` 폴더에 쿼리 함수 + react-query 훅 + UI 컴포넌트를 구현한다. 동호회 생성 시 생성자가 자동으로 owner로 등록되며, 목록은 공개 동호회를 카드 그리드로 표시한다.
 
 **Tech Stack:** TypeScript, Expo Router, Supabase (PostgreSQL + Auth + RLS), NativeWind, react-hook-form + zod, @tanstack/react-query, @shopify/flash-list
-**적용 규칙:** `rules/typescript.md`, `rules/react-native.md`, `rules/supabase.md`
+**적용 규칙:** `rules/tech/typescript.md`, `rules/tech/react-native.md`, `rules/tech/supabase.md`
 
 **Sprint 기간:** 2026-03-26 ~ 2026-03-27
 **이전 스프린트:** Sprint 1 (인증 시스템 구축 완료, commit 1f00523)
@@ -64,7 +66,7 @@ src/services/supabase/
 
 ## 코드 컨벤션 (rules 참조)
 
-> 상세 규칙은 `rules/{tech}.md` 원본을 참조한다. 여기에는 이 Sprint에서 특히 중요한 핵심만 발췌.
+> 상세 규칙은 `rules/tech/{tech}.md` 원본을 참조한다. 여기에는 이 Sprint에서 특히 중요한 핵심만 발췌.
 
 **1. DB 타입은 자동 생성만 사용**
 ```typescript
